@@ -1,0 +1,265 @@
+/* Body com imagem de fundo e transparência */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+/* Container principal */
+.home-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px 60px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Descrição */
+.home-description {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.home-description h1 {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.home-description p {
+  color: #4b5563;
+  font-size: 0.9rem;
+}
+
+/* Filtros */
+.home-filters {
+  margin-bottom: 30px;
+}
+
+.filters-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filters-form input,
+.filters-form select {
+  padding: 6px 8px;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
+  font-size: 0.85rem;
+}
+
+.filters-form button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.filters-form button:hover {
+  background-color: #2563eb;
+}
+
+/* Grid produtos */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  justify-items: stretch;
+  margin: 0 auto;
+}
+
+/* Product Card */
+.product-card {
+  position: relative;
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-decoration: none;
+  color: #1f2937;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Imagem do card */
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Botão de favorito */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: transform 0.2s;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Infos do produto */
+.product-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
+}
+
+.product-top h3 {
+  margin: 0;
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #1f2937;
+}
+
+/* Marca e modelo lado a lado */
+.marca-modelo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 3px 0;
+}
+
+.marca-modelo .marca,
+.marca-modelo .modelo {
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.marca-modelo .marca {
+  color: #333;
+}
+
+.marca-modelo .modelo {
+  color: #555;
+  font-weight: 500;
+}
+
+/* Bottom */
+.product-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin-top: auto;
+}
+
+.bottom-left .preco {
+  color: #1f2937;
+}
+
+.bottom-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.7rem;
+  color: #888;
+}
+
+.bottom-right .localidade {
+  margin-bottom: 2px;
+}
+
+/* Estado como etiqueta */
+.estado-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.estado-tag.novo {
+  background-color: #10b981;
+}
+
+.estado-tag.usado {
+  background-color: #f59e0b;
+}
+
+/* Todo o card clicável */
+.product-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+
+
+/* Botão de mensagem igual ao favorito */
+.message-btn {
+  position: absolute;
+  top: 10px;
+  right: 45px; /* à esquerda do favorito */
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: transform 0.2s;
+}
+
+.message-btn:hover {
+  transform: scale(1.2);
+}

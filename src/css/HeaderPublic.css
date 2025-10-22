@@ -1,0 +1,58 @@
+.header-public {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #1f2937;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  flex-wrap: wrap; /* permite que elementos quebrem linha */
+}
+
+.header-public .logo img {
+  height: 50px; /* mantém tamanho real do header */
+  width: auto;
+  object-fit: contain;
+  transform: scale(2.8); /* aumenta visualmente sem aumentar o retângulo */
+  transform-origin: left center; /* aumenta a partir do canto esquerdo central */
+}
+
+.header-public nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap; /* permite que links quebrem linha */
+}
+
+.header-public nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.header-public nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .header-public {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px 20px;
+  }
+
+  .header-public nav ul {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .header-public nav ul li a {
+    display: block;
+    width: 100%;
+  }
+}

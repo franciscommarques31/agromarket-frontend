@@ -1,0 +1,119 @@
+/* Reset e altura total */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+/* Wrapper da página de login */
+.login-wrapper {
+  display: grid;
+  place-items: center; /* centra horizontal e vertical */
+  min-height: calc(100vh - 80px); /* altura total menos header */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Container dos blocos */
+.login-container {
+  display: flex;
+  gap: 50px;
+  max-width: 1200px;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Bloco esquerdo - Login */
+.login-left {
+  flex: 1;
+  min-width: 300px;
+  background: #f9fafb;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Bloco direito - Mensagem de registo */
+.login-right {
+  flex: 1;
+  min-width: 250px;
+  background: #f9fafb;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  height: auto;
+}
+
+/* Textos */
+.login-left h2, .login-right h2 {
+  margin-bottom: 15px;
+  color: #111827;
+}
+
+.login-left p, .login-right p {
+  margin-bottom: 25px;
+  color: #4b5563;
+}
+
+/* Inputs */
+.login-form input {
+  width: 100%;
+  padding: 12px 10px;
+  margin-bottom: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Botões */
+.btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+/* Erros */
+.auth-error {
+  color: red;
+  margin-top: 10px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-left, .login-right {
+    width: 100%;
+    max-width: 400px;
+  }
+}

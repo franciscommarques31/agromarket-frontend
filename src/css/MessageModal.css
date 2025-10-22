@@ -1,0 +1,122 @@
+.conversation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.conversation-box {
+  width: 550px;
+  max-width: 95%;
+  height: 600px;
+  max-height: 90%;
+  background: #fff;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #ddd;
+}
+
+.conversation-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  color: #333;
+}
+
+.conversation-messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f0f0f0;
+}
+
+.message-bubble {
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-bubble.sent {
+  align-self: flex-end;
+  background: #007bff;
+  color: #fff;
+  border-bottom-right-radius: 2px;
+}
+
+.message-bubble.received {
+  align-self: flex-start;
+  background: #e0e0e0;
+  color: #333;
+  border-bottom-left-radius: 2px;
+}
+
+.message-sender-name {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.conversation-input {
+  display: flex;
+  padding: 10px 15px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  gap: 10px;
+}
+
+.conversation-input textarea {
+  flex: 1;
+  resize: none;
+  height: 50px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.conversation-input button {
+  padding: 0 20px;
+  border: none;
+  border-radius: 12px;
+  background: #007bff;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.conversation-input button:hover {
+  background: #0056b3;
+}

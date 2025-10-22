@@ -1,0 +1,228 @@
+/* Container principal */
+.dash-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dash-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+}
+
+/* Layout principal */
+.dash-main {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+/* Coluna esquerda */
+.dash-left-column {
+  flex: 1 1 auto;
+}
+
+/* Coluna direita */
+.dash-right-column {
+  flex: 0 0 350px;
+  background: #f3f4f6;
+  padding: 15px;
+  border-radius: 8px;
+  height: fit-content;
+}
+
+/* Grid produtos */
+.dash-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  justify-items: center;
+}
+
+/* Card de produto + botões */
+.dash-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dash-card {
+  position: relative;
+  background: #f9fafb;
+  width: 150px;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dash-card:hover {
+  transform: translateY(-3px);
+}
+
+.dash-img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 6px;
+}
+
+/* Info interna do card */
+.dash-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 90px;
+}
+
+.dash-top h3 {
+  margin: 0 0 4px 0;
+  font-size: 0.95rem;
+  text-align: left;
+  color: #1f2937;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dash-marca-modelo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 6px 0;
+}
+
+.dash-marca,
+.dash-modelo {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dash-marca { color: #333; }
+.dash-modelo { color: #555; font-weight: 500; }
+
+.dash-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-top: auto;
+}
+
+.dash-left .dash-preco { color: #1f2937; }
+
+.dash-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 0.65rem;
+  color: #888;
+}
+
+.dash-right .dash-localidade { margin-bottom: 2px; }
+
+/* Estado do produto */
+.dash-estado {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+}
+
+.dash-estado.novo { background-color: #10b981; }
+.dash-estado.usado { background-color: #f59e0b; }
+
+/* Botões do card */
+.dash-card-buttons {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  width: 100%;
+}
+
+.dash-edit-btn,
+.dash-delete-btn {
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.dash-edit-btn { background-color: #3b82f6; color: white; }
+.dash-edit-btn:hover { background-color: #2563eb; }
+
+.dash-delete-btn { background-color: #ef4444; color: white; }
+.dash-delete-btn:hover { background-color: #b91c1c; }
+
+/* Coluna notificações */
+.dash-notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dash-notification-card {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  padding: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.dash-notification-card:hover {
+  transform: translateY(-2px);
+}
+
+.dash-notification-card img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.dash-notification-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 0.8rem;
+}
+
+.dash-views {
+  font-size: 0.75rem;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Mobile: coluna notificações abaixo */
+@media (max-width: 800px) {
+  .dash-main { flex-direction: column; }
+  .dash-right-column { width: 100%; }
+}

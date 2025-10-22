@@ -1,0 +1,83 @@
+.add-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.add-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-error {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.add-form {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.add-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.add-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.add-field input,
+.add-field select,
+.add-field textarea {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.desc-field {
+  grid-column: span 2;
+}
+
+.preview-container {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.preview-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.add-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.add-btn:hover {
+  background: #1e40af;
+}
