@@ -10,6 +10,8 @@ import Favorites from "./pages/Favorites";
 import EditProfile from "./pages/EditProfile";
 import Messages from "./pages/Messages";
 import ProductDetail from "./pages/ProductDetail";
+import EditProduct from "./pages/EditProduct";
+
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
           {/* Páginas privadas/backend */}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/dashboard/edit/:id" element={<EditProduct />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/messages" element={<Messages />} /> {/* <-- Rota Mensagens */}
