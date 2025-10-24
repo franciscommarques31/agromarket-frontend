@@ -1,0 +1,69 @@
+/* src/css/EditProductSimple.css */
+
+.edit-simple-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.edit-simple-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.edit-simple-error {
+  color: red;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.edit-simple-form {
+  background: #f9fafb;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.edit-simple-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-simple-field label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.edit-simple-field input,
+.edit-simple-field select,
+.edit-simple-field textarea {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.edit-simple-desc-field {
+  grid-column: span 2;
+}
+
+.edit-simple-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  grid-column: span 2;
+}
+
+.edit-simple-btn:hover {
+  background: #1e40af;
+}

@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import HeaderPublic from "../components/HeaderPublic";
 import "../css/Login.css";
 import { loginUser } from "../api/auth"; // função que faz login no backend
-import { AuthContext } from "../context/AuthContext"; // context
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -19,12 +19,20 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Chama API de login
       const res = await loginUser(formData); // retorna { token, user }
       const { token, user } = res;
 
-      login(user, token); // salva no contexto e localStorage
+      // Guarda no contexto e no localStorage
+      login(user, token); // update AuthContext
+      localStorage.setItem("token", token); // Guarda token para usar nas rotas admin
 
-      navigate("/dashboard"); // redireciona
+      // Redireciona admin ou user normal
+      if (user.isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setError(err.message || "Credenciais inválidas");
     }

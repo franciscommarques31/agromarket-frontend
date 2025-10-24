@@ -28,10 +28,13 @@ export default function Header() {
             <>
               <li><Link to="/dashboard">Dashboard</Link></li>
               <li><Link to="/add-product">Colocar Produto</Link></li>
-              <li><Link to="/edit-product/123">Editar Produto</Link></li>
               <li><Link to="/messages">Mensagens</Link></li>
-              <li><Link to="/favorites">Favoritos</Link></li> {/* <-- aqui */}
+              <li><Link to="/favorites">Favoritos</Link></li>
               <li><Link to="/edit-profile">Editar Perfil</Link></li>
+
+              {/* Link só aparece se for admin */}
+              {user.isAdmin && <li><Link to="/admin">Painel Admin</Link></li>}
+
               <li><button onClick={handleLogout}>Logout</button></li>
             </>
           ) : (

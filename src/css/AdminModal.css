@@ -1,0 +1,126 @@
+/* src/css/AdminModal.css */
+
+/* Overlay do modal */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Container do modal */
+.admin-modal {
+  background: #f9fafb;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 900px;   /* largura maior */
+  max-height: 90vh;   /* quase toda a altura da tela */
+  overflow-y: auto;   /* scroll interno se ultrapassar altura */
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+}
+
+/* Título do modal */
+.admin-modal h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #111827;
+}
+
+/* Campos do modal */
+.admin-modal label {
+  font-weight: bold;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.admin-modal input,
+.admin-modal select,
+.admin-modal textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+}
+
+.admin-modal textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Grupo de campos lado a lado (ex: preço e estado) */
+.admin-modal .field-row {
+  display: flex;
+  gap: 15px;
+}
+
+.admin-modal .field-row > div {
+  flex: 1;
+}
+
+/* Botões do modal */
+.admin-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.admin-modal-buttons button {
+  padding: 12px 18px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+/* Botão principal: guardar */
+.admin-modal-buttons button:first-child {
+  background-color: #2563eb;
+  color: white;
+}
+
+.admin-modal-buttons button:first-child:hover {
+  background-color: #1e40af;
+}
+
+/* Botão secundário: cancelar */
+.admin-modal-buttons button:last-child {
+  background-color: #ccc;
+}
+
+.admin-modal-buttons button:last-child:hover {
+  background-color: #999;
+}
+
+/* Mensagens de erro dentro do modal */
+.admin-modal .error-message {
+  color: red;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .admin-modal {
+    width: 95%;
+    padding: 20px;
+  }
+  .admin-modal .field-row {
+    flex-direction: column;
+  }
+}
