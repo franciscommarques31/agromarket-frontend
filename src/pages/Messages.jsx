@@ -26,7 +26,7 @@ export default function Messages() {
     const fetchConversations = async () => {
       if (!token) return;
       try {
-        const res = await fetch("http://localhost:3000/api/messages", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -58,7 +58,7 @@ export default function Messages() {
   const handleSelectConversation = async (conv) => {
     setSelectedConversation(conv);
     try {
-      const res = await fetch(`http://localhost:3000/api/messages/${conv.product._id}/user`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/${conv.product._id}/user`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -80,7 +80,7 @@ export default function Messages() {
         : selectedConversation.sender._id;
 
     try {
-      const res = await fetch("http://localhost:3000/api/messages", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

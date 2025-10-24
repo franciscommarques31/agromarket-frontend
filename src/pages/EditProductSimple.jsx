@@ -16,7 +16,7 @@ export default function EditProductSimple() {
     const fetchProduct = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(`http://localhost:3000/api/products/${id}`, {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProduct(res.data);
@@ -50,7 +50,7 @@ export default function EditProductSimple() {
       });
 
       await axios.patch(
-        `http://localhost:3000/api/products/${id}`,
+        `${import.meta.env.VITE_API_URL}/products/${id}`,
         updatedData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

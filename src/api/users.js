@@ -1,5 +1,5 @@
 // src/api/users.js
-const API_URL = "http://localhost:3000/api/auth";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const getProfile = async (token) => {
   const res = await fetch(`${API_URL}/me`, {

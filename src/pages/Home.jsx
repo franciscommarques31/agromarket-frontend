@@ -33,7 +33,7 @@ export default function Home() {
 
   const fetchProducts = async (params = {}) => {
     try {
-      const res = await axios.get("http://localhost:3000/api/products/search", { params });
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/products/search`, { params });
       setProducts(res.data.slice(0, 12));
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
@@ -66,7 +66,7 @@ export default function Home() {
 
     try {
       await axios.post(
-        `http://localhost:3000/api/products/${product._id}/favorite`,
+        `${import.meta.env.VITE_API_URL}/products/${product._id}/favorite`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

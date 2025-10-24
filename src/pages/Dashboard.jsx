@@ -18,7 +18,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("Não estás logado");
 
-      const res = await axios.get("http://localhost:3000/api/products/me", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/products/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -67,7 +67,7 @@ export default function Dashboard() {
     if (!window.confirm("Tens a certeza que queres apagar este produto?")) return;
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/products/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/products/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setDashboardProducts((prev) => prev.filter((p) => p._id !== id));

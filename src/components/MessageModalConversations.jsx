@@ -15,7 +15,7 @@ export default function MessageModalConversations({ isOpen, onClose, productId, 
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/api/messages/${productId}`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/messages/${productId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setMessages(res.data);
@@ -39,7 +39,7 @@ export default function MessageModalConversations({ isOpen, onClose, productId, 
     if (!content.trim()) return;
     try {
       await axios.post(
-        "http://localhost:3000/api/messages",
+        `${import.meta.env.VITE_API_URL}/messages`,
         { recipientId, productId, content },
         { headers: { Authorization: `Bearer ${token}` } }
       );

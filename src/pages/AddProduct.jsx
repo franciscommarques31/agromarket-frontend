@@ -59,7 +59,7 @@ export default function AddProduct() {
         data.append("image", img);
 
         const res = await axios.post(
-          "http://localhost:3000/api/upload",
+          `${import.meta.env.VITE_API_URL}/upload`,
           data,
           {
             headers: {
@@ -74,7 +74,7 @@ export default function AddProduct() {
 
       const productData = { ...formData, imagens: uploadedImages };
 
-      await axios.post("http://localhost:3000/api/products", productData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/products`, productData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

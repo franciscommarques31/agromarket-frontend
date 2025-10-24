@@ -32,7 +32,7 @@ export default function ProductPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/products")
+      .get(`${import.meta.env.VITE_API_URL}/products`)
       .then((res) => {
         setProducts(res.data);
         setFilteredProducts(res.data);
@@ -95,7 +95,7 @@ export default function ProductPage() {
 
     try {
       await axios.post(
-        `http://localhost:3000/api/products/${product._id}/favorite`,
+        `${import.meta.env.VITE_API_URL}/products/${product._id}/favorite`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );

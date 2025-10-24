@@ -22,7 +22,7 @@ export default function EditProfile() {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:3000/api/auth/me", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/auth/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -57,7 +57,7 @@ export default function EditProfile() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        "http://localhost:3000/api/auth/update-profile",
+        `${import.meta.env.VITE_API_URL}/auth/update-profile`,
         form,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -79,7 +79,7 @@ export default function EditProfile() {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete("http://localhost:3000/api/auth/delete-account", {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/auth/delete-account`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

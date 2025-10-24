@@ -22,7 +22,7 @@ const ProductDetail = () => {
           : {};
 
         const res = await axios.get(
-          `http://localhost:3000/api/products/${id}`,
+          `${import.meta.env.VITE_API_URL}/products/${id}`,
           config
         );
 

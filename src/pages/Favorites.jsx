@@ -15,7 +15,7 @@ export default function Favorites() {
   const fetchFavorites = async () => {
     if (!token) return;
     try {
-      const res = await axios.get("http://localhost:3000/api/users/favorites", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/favorites`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFavorites(res.data);
@@ -28,7 +28,7 @@ export default function Favorites() {
     if (!token) return;
     try {
       await axios.post(
-        `http://localhost:3000/api/users/favorites/${productId}`,
+        `${import.meta.env.VITE_API_URL}/users/favorites/${productId}`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
