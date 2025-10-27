@@ -15,6 +15,7 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [search, setSearch] = useState("");
 
   const [editingUser, setEditingUser] = useState(null);
   const [editingProduct, setEditingProduct] = useState(null);
@@ -60,7 +61,6 @@ export default function AdminDashboard() {
       const token = localStorage.getItem("token");
       const updatedUser = { ...editingUser };
 
-      // Só envia password se tiver preenchido
       if (password.trim() !== "") {
         updatedUser.password = password;
       }
@@ -106,6 +106,12 @@ export default function AdminDashboard() {
     }
   };
 
+  const filteredUsers = users.filter(
+    (u) =>
+      u.name?.toLowerCase().includes(search.toLowerCase()) ||
+      u.email?.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (loading) return <p>Carregando dados...</p>;
   if (error) return <p>{error}</p>;
 
@@ -113,55 +119,92 @@ export default function AdminDashboard() {
     <div>
       <AdminHeader />
       <div className="admin-dashboard-container">
-     
         <div className="admin-dashboard-columns">
           {/* -------- UTILIZADORES -------- */}
-          <div className="admin-left-column">
+          <div className="admin-table-section">
             <h2>Utilizadores</h2>
-            {users.length === 0 ? (
-              <p>Não há utilizadores.</p>
-            ) : (
-              <div className="admin-user-grid">
-                {users.map((user) => (
-                  <div key={user._id} className="admin-user-card">
-                    <p><strong>Nome:</strong> {user.name}</p>
-                    <p><strong>Email:</strong> {user.email}</p>
-                    <p><strong>Admin:</strong> {user.isAdmin ? "Sim" : "Não"}</p>
-                    <div className="admin-product-buttons">
-                      <button onClick={() => setEditingUser(user)}>Editar</button>
-                      <button onClick={() => handleDeleteUser(user._id)}>Apagar</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            <input
+              type="text"
+              placeholder="Pesquisar por nome ou email..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="admin-search-input"
+            />
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Email</th>
+                  <th>Telefone</th>
+                  <th>Cidade</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="empty">
+                      Nenhum utilizador encontrado.
+                    </td>
+                  </tr>
+                ) : (
+                  filteredUsers.map((user) => (
+                    <tr key={user._id}>
+                      <td>{user.name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phone || "-"}</td>
+                      <td>{user.city || "-"}</td>
+                      <td className="actions">
+                        <button onClick={() => setEditingUser(user)}>✏️</button>
+                        <button onClick={() => handleDeleteUser(user._id)}>🗑️</button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
 
           {/* -------- PRODUTOS -------- */}
-          <div className="admin-right-column">
+          <div className="admin-table-section">
             <h2>Produtos</h2>
-            {products.length === 0 ? (
-              <p>Não há produtos.</p>
-            ) : (
-              <div className="admin-product-grid">
-                {products.map((product) => (
-                  <div key={product._id} className="admin-product-card">
-                    <p><strong>Produto:</strong> {product.produto}</p>
-                    <p><strong>Marca:</strong> {product.marca}</p>
-                    <p><strong>Modelo:</strong> {product.modelo}</p>
-                    <p><strong>Utilizador:</strong> {product.user?.email || "Desconhecido"}</p>
-                    <div className="admin-product-buttons">
-                      <button onClick={() => setEditingProduct(product)}>Editar</button>
-                      <button onClick={() => handleDeleteProduct(product._id)}>Apagar</button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Produto</th>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Utilizador</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.length === 0 ? (
+                  <tr>
+                    <td colSpan="5" className="empty">
+                      Nenhum produto disponível.
+                    </td>
+                  </tr>
+                ) : (
+                  products.map((product) => (
+                    <tr key={product._id}>
+                      <td>{product.produto}</td>
+                      <td>{product.marca}</td>
+                      <td>{product.modelo || "-"}</td>
+                      <td>{product.user?.email || "Desconhecido"}</td>
+                      <td className="actions">
+                        <button onClick={() => setEditingProduct(product)}>✏️</button>
+                        <button onClick={() => handleDeleteProduct(product._id)}>🗑️</button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
 
-        {/* -------- MODAL EDITAR UTILIZADOR -------- */}
+        {/* -------- MODAIS -------- */}
         {editingUser && (
           <div className="admin-modal-overlay">
             <div className="admin-modal">
@@ -212,7 +255,7 @@ export default function AdminDashboard() {
                   }
                 />
 
-                <label>Password (deixa em branco para não alterar)</label>
+                <label>Password (opcional)</label>
                 <input
                   type="password"
                   placeholder="Nova password"
@@ -229,12 +272,10 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* -------- MODAL EDITAR PRODUTO -------- */}
         {editingProduct && (
           <div className="admin-modal-overlay">
             <div className="admin-modal">
               <h2>Editar Produto</h2>
-
               <div className="admin-modal-grid">
                 <label>Setor</label>
                 <select
@@ -259,15 +300,6 @@ export default function AdminDashboard() {
                   }
                 />
 
-                <label>Modelo</label>
-                <input
-                  type="text"
-                  value={editingProduct.modelo}
-                  onChange={(e) =>
-                    setEditingProduct({ ...editingProduct, modelo: e.target.value })
-                  }
-                />
-
                 <label>Marca</label>
                 <input
                   type="text"
@@ -277,38 +309,29 @@ export default function AdminDashboard() {
                   }
                 />
 
-                <label>Distrito</label>
+                <label>Modelo</label>
                 <input
                   type="text"
-                  value={editingProduct.distrito}
+                  value={editingProduct.modelo || ""}
                   onChange={(e) =>
-                    setEditingProduct({ ...editingProduct, distrito: e.target.value })
-                  }
-                />
-
-                <label>Horas</label>
-                <input
-                  type="number"
-                  value={editingProduct.horas}
-                  onChange={(e) =>
-                    setEditingProduct({ ...editingProduct, horas: e.target.value })
-                  }
-                />
-
-                <label>Preço</label>
-                <input
-                  type="number"
-                  value={editingProduct.preco}
-                  onChange={(e) =>
-                    setEditingProduct({ ...editingProduct, preco: e.target.value })
+                    setEditingProduct({ ...editingProduct, modelo: e.target.value })
                   }
                 />
 
                 <label>Descrição</label>
                 <textarea
-                  value={editingProduct.descricao}
+                  value={editingProduct.descricao || ""}
                   onChange={(e) =>
                     setEditingProduct({ ...editingProduct, descricao: e.target.value })
+                  }
+                />
+
+                <label>Preço (€)</label>
+                <input
+                  type="number"
+                  value={editingProduct.preco}
+                  onChange={(e) =>
+                    setEditingProduct({ ...editingProduct, preco: e.target.value })
                   }
                 />
 

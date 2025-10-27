@@ -1,0 +1,208 @@
+/* Container principal */
+.admin-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f8fafc; /* fundo da página da tabela */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Título */
+.admin-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #111827;
+}
+
+/* Campos de pesquisa estilo ProductPage */
+.admin-searches {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.search-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 220px;
+}
+
+.search-field label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: #000; /* azul */
+  font-size: 0.9rem;
+}
+
+.search-field select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.search-field select:hover {
+  border-color: #93c5fd; /* highlight ao passar o mouse */
+}
+
+.search-field select:focus {
+  border-color: #000;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Wrapper da tabela para rolagem horizontal */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Tabela tipo Excel */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+  background-color: white; /* todas as células opacas */
+}
+
+.admin-table th {
+  background-color: #e2e8f0;
+  font-weight: 600;
+  color: #111827;
+}
+
+.admin-table tr:nth-child(even) td {
+  background-color: #f3f4f6; /* linha alternada, opaca */
+}
+
+/* Botões dentro da tabela */
+.admin-table button {
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 5px;
+  transition: none;
+  transform: none;
+  font-size: 0.75rem;
+}
+
+.admin-table button.edit-btn {
+  background-color: #2563eb;
+  color: white;
+}
+
+.admin-table button.edit-btn:hover {
+  background-color: #1d4ed8;
+  transform: none;
+}
+
+.admin-table button.delete-btn {
+  background-color: #dc2626;
+  color: white;
+}
+
+.admin-table button.delete-btn:hover {
+  background-color: #b91c1c;
+  transform: none;
+}
+
+/* Modal */
+.admin-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5); /* leve, sem ficar escuro demais */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.admin-modal {
+  background: white;
+  width: 80%;
+  max-width: 500px; /* modal mais compacto */
+  max-height: 80vh;
+  overflow-y: auto;
+  padding: 35px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Labels e inputs com espaçamento adequado */
+.admin-modal label {
+  display: block;
+  font-weight: bold;
+  color: #374151;
+  margin-top: 20px;   /* espaçamento antes de cada label */
+  margin-bottom: 6px; /* espaçamento entre label e input */
+}
+
+.admin-modal input,
+.admin-modal textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  margin-bottom: 5px; /* espaço entre campos */
+}
+
+.admin-modal input:focus,
+.admin-modal textarea:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+}
+
+/* Botões do modal */
+.admin-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.admin-modal-buttons button.save-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.admin-modal-buttons button.save-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.admin-modal-buttons button.cancel-btn {
+  background-color: #6b7280;
+  color: white;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.admin-modal-buttons button.cancel-btn:hover {
+  background-color: #4b5563;
+}

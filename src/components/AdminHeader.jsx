@@ -24,6 +24,12 @@ export default function AdminHeader() {
       <nav className="nav-menu">
         <ul>
           <li>
+            <Link to="/admin/users">Utilizadores</Link>
+          </li>
+          <li>
+            <Link to="/admin/products">Produtos</Link>
+          </li>
+          <li>
             <button onClick={handleLogout}>Logout</button>
           </li>
         </ul>

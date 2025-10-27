@@ -1,108 +1,116 @@
-// src/admin/AdminProducts.jsx
-import { useEffect, useState, useContext } from "react";
-import { getAllProducts, deleteProduct, updateProduct } from "../api/admin";
-import { AuthContext } from "../context/AuthContext";
+import { useEffect, useState } from "react";
+import AdminHeader from "../components/AdminHeader";
+import { getAllProducts, updateProduct, deleteProduct } from "../api/admin";
+import "../css/AdminDashboard.css";
 
 export default function AdminProducts() {
-  const { token } = useContext(AuthContext);
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [formData, setFormData] = useState({ produto: "", marca: "", preco: "" });
 
   const fetchProducts = async () => {
-    const data = await getAllProducts(token);
-    setProducts(data);
+    try {
+      const token = localStorage.getItem("token");
+      const productsRes = await getAllProducts(token);
+      setProducts(productsRes);
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao carregar produtos");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const handleEdit = (product) => {
-    setEditingProduct(product._id);
-    setFormData({ produto: product.produto, marca: product.marca, preco: product.preco });
+  const handleDeleteProduct = async (id) => {
+    if (!window.confirm("Tens a certeza que queres apagar este produto?")) return;
+    const token = localStorage.getItem("token");
+    await deleteProduct(token, id);
+    setProducts((prev) => prev.filter((p) => p._id !== id));
   };
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
-    await updateProduct(token, editingProduct, formData);
-    setEditingProduct(null);
-    fetchProducts();
-  };
-
-  const handleDelete = async (id) => {
-    if (window.confirm("Tem a certeza que quer apagar este produto?")) {
-      await deleteProduct(token, id);
-      fetchProducts();
+  const handleSaveProduct = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await updateProduct(token, editingProduct._id, editingProduct);
+      setProducts((prev) =>
+        prev.map((p) => (p._id === editingProduct._id ? editingProduct : p))
+      );
+      setEditingProduct(null);
+      alert("Produto atualizado!");
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao atualizar produto");
     }
   };
 
+  if (loading) return <p>Carregando produtos...</p>;
+
   return (
     <div>
-      <h1>Gestão de Produtos</h1>
-      {products.length === 0 ? (
-        <p>Nenhum produto registado.</p>
-      ) : (
-        <table border="1">
-          <thead>
-            <tr>
-              <th>Produto</th>
-              <th>Marca</th>
-              <th>Preço</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((p) => (
-              <tr key={p._id}>
-                <td>
-                  {editingProduct === p._id ? (
-                    <input
-                      value={formData.produto}
-                      onChange={(e) => setFormData({ ...formData, produto: e.target.value })}
-                    />
-                  ) : (
-                    p.produto
-                  )}
-                </td>
-                <td>
-                  {editingProduct === p._id ? (
-                    <input
-                      value={formData.marca}
-                      onChange={(e) => setFormData({ ...formData, marca: e.target.value })}
-                    />
-                  ) : (
-                    p.marca
-                  )}
-                </td>
-                <td>
-                  {editingProduct === p._id ? (
-                    <input
-                      value={formData.preco}
-                      onChange={(e) => setFormData({ ...formData, preco: e.target.value })}
-                    />
-                  ) : (
-                    p.preco
-                  )}
-                </td>
-                <td>
-                  {editingProduct === p._id ? (
-                    <>
-                      <button onClick={handleUpdate}>Salvar</button>
-                      <button onClick={() => setEditingProduct(null)}>Cancelar</button>
-                    </>
-                  ) : (
-                    <>
-                      <button onClick={() => handleEdit(p)}>Editar</button>
-                      <button onClick={() => handleDelete(p._id)}>Apagar</button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <AdminHeader />
+      <div className="admin-dashboard-container">
+        <h2>Produtos</h2>
+        <div className="admin-cards-scroll">
+          {products.map((product) => (
+            <div key={product._id} className="admin-card">
+              <p><strong>Produto:</strong> {product.produto}</p>
+              <p><strong>Marca:</strong> {product.marca}</p>
+              <p><strong>Modelo:</strong> {product.modelo}</p>
+              <p><strong>Utilizador:</strong> {product.user?.email || "Desconhecido"}</p>
+              <div className="admin-card-buttons">
+                <button onClick={() => setEditingProduct(product)}>Editar</button>
+                <button onClick={() => handleDeleteProduct(product._id)}>Apagar</button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {editingProduct && (
+          <div className="admin-modal-overlay">
+            <div className="admin-modal">
+              <h2>Editar Produto</h2>
+              <div className="admin-modal-grid">
+                <label>Produto</label>
+                <input
+                  type="text"
+                  value={editingProduct.produto}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, produto: e.target.value })}
+                />
+                <label>Marca</label>
+                <input
+                  type="text"
+                  value={editingProduct.marca}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, marca: e.target.value })}
+                />
+                <label>Modelo</label>
+                <input
+                  type="text"
+                  value={editingProduct.modelo}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, modelo: e.target.value })}
+                />
+                <label>Estado</label>
+                <select
+                  value={editingProduct.estado}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, estado: e.target.value })}
+                >
+                  <option value="novo">Novo</option>
+                  <option value="usado">Usado</option>
+                </select>
+                <label>Utilizador</label>
+                <input type="email" value={editingProduct.user?.email} disabled />
+              </div>
+              <div className="admin-modal-buttons">
+                <button onClick={handleSaveProduct}>Guardar</button>
+                <button onClick={() => setEditingProduct(null)}>Cancelar</button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
