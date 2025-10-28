@@ -4,12 +4,14 @@ import { AiOutlineHeart, AiOutlineMail } from "react-icons/ai";
 import HeaderPublic from "../components/HeaderPublic";
 import axios from "axios";
 import "../css/Home.css";
+import "../css/Intro.css"; // CSS para o vídeo
 import "../css/MessageModal.css";
 import { AuthContext } from "../context/AuthContext";
 import MessageModal from "../components/MessageModal";
 
 export default function Home() {
   const { user, token } = useContext(AuthContext);
+  const [showIntro, setShowIntro] = useState(false);
 
   const [filters, setFilters] = useState({
     setor: "",
@@ -27,13 +29,21 @@ export default function Home() {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
+    const alreadyShown = sessionStorage.getItem("introShown");
+    if (!alreadyShown) {
+      setShowIntro(true);
+      sessionStorage.setItem("introShown", "true");
+    }
     fetchProducts();
     // eslint-disable-next-line
   }, []);
 
   const fetchProducts = async (params = {}) => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/products/search`, { params });
+      const res = await axios.get(
+        `${import.meta.env.VITE_API_URL}/products/search`,
+        { params }
+      );
       setProducts(res.data.slice(0, 12));
     } catch (error) {
       console.error("Erro ao buscar produtos:", error);
@@ -93,10 +103,34 @@ export default function Home() {
     setModalOpen(false);
   };
 
+  const handleEnter = () => setShowIntro(false);
+
   return (
     <div>
+      {/* Header sempre renderizado, ficará desfocado pelo overlay */}
       <HeaderPublic />
-      <div className="home-container">
+
+      {/* Vídeo de introdução com overlay de opacidade/desfoque */}
+      {showIntro && (
+        <div className="intro-overlay">
+          <div className="intro-container">
+            <iframe
+              className="intro-video"
+              src="https://www.youtube.com/embed/Lt6Dtq9fj2U?autoplay=1&mute=1&controls=1&modestbranding=1"
+              title="Vídeo de Abertura"
+              frameBorder="0"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+            ></iframe>
+            <button onClick={handleEnter} className="enter-btn">
+              Entrar no site
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Conteúdo da Home */}
+      <div className={`home-container ${showIntro ? "blurred" : ""}`}>
         <div className="main-content">
           <section className="home-description">
             <h1>Bem-vindo ao AgroMarket</h1>
@@ -134,33 +168,19 @@ export default function Home() {
           <section className="products-grid">
             {products.length === 0 && <p>Nenhum produto encontrado</p>}
             {products.map((product) => (
-              <Link
-                key={product._id}
-                to={`/product/${product._id}`}
-                className="product-card"
-              >
+              <Link key={product._id} to={`/product/${product._id}`} className="product-card">
                 {product.estado && <span className={`estado-tag ${product.estado}`}>{product.estado}</span>}
                 <img src={product.imagens?.[0] || "/assets/placeholder.jpg"} alt={product.produto} />
-
-                {/* Botões */}
                 <div className="product-card-buttons">
-                  <button
-                    className="favorite-btn"
-                    onClick={(e) => handleFavorite(e, product)}
-                  >
+                  <button className="favorite-btn" onClick={(e) => handleFavorite(e, product)}>
                     <AiOutlineHeart size={20} />
                   </button>
-
                   {user && (
-                    <button
-                      className="message-btn"
-                      onClick={(e) => handleOpenModal(e, product)}
-                    >
+                    <button className="message-btn" onClick={(e) => handleOpenModal(e, product)}>
                       <AiOutlineMail size={20} />
                     </button>
                   )}
                 </div>
-
                 <div className="product-info">
                   <div className="product-top">
                     <h3>{product.produto}</h3>
@@ -185,7 +205,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Modal de mensagem */}
       <MessageModal
         isOpen={modalOpen}
         onClose={handleCloseModal}
