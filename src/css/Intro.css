@@ -4,8 +4,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.3); /* leve escurecimento */
-  backdrop-filter: blur(5px);   /* desfoque do conteúdo atrás */
+  background: rgba(0,0,0,0.4); /* leve escurecimento */
+  backdrop-filter: blur(3px);   /* desfoque do conteúdo atrás */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,8 +56,4 @@
   }
 }
 
-/* Blur do site atrás do vídeo */
-.home-container.blurred {
-  filter: blur(5px);
-  pointer-events: none;
-}
+
