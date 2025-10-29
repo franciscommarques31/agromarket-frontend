@@ -12,6 +12,10 @@ import Messages from "./pages/Messages";
 import ProductDetail from "./pages/ProductDetail";
 import EditProductSimple from "./pages/EditProductSimple"; // ✅ Importa a página de edição
 import AdminRoutes from "./admin/AdminRoutes"; // importa o painel de admin
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+
+
 function App() {
   return (
     <AuthProvider>
@@ -23,6 +27,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} /> 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
 
           {/* Páginas privadas/backend */}
           <Route path="/dashboard" element={<Dashboard />} />

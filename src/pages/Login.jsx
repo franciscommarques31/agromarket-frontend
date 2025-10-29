@@ -64,6 +64,12 @@ export default function Login() {
               <button type="submit" className="btn-primary">
                 Entrar
               </button>
+
+              {/* LINK PARA ESQUECI A PASSWORD */}
+              <p style={{ marginTop: "10px", textAlign: "right" }}>
+                <Link to="/forgot-password">Esqueci a minha password</Link>
+              </p>
+
               {error && <p className="auth-error">{error}</p>}
             </form>
           </div>
