@@ -167,14 +167,6 @@ export default function AdminProducts() {
                   />
                 </div>
 
-                <div className="form-group">
-                  <label>Modelo</label>
-                  <input
-                    type="text"
-                    value={editingProduct.modelo || ""}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, modelo: e.target.value })}
-                  />
-                </div>
 
                 <div className="form-group">
                   <label>Marca</label>
@@ -184,6 +176,17 @@ export default function AdminProducts() {
                     onChange={(e) => setEditingProduct({ ...editingProduct, marca: e.target.value })}
                   />
                 </div>
+
+
+                <div className="form-group">
+                  <label>Modelo</label>
+                  <input
+                    type="text"
+                    value={editingProduct.modelo || ""}
+                    onChange={(e) => setEditingProduct({ ...editingProduct, modelo: e.target.value })}
+                  />
+                </div>
+
 
                 <div className="form-group">
                   <label>Distrito</label>

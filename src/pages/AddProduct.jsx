@@ -129,16 +129,6 @@ export default function AddProduct() {
             </div>
 
             <div className="add-field">
-              <label>Modelo</label>
-              <input
-                type="text"
-                name="modelo"
-                value={formData.modelo}
-                onChange={handleChange}
-              />
-            </div>
-
-            <div className="add-field">
               <label>Marca *</label>
               <input
                 type="text"
@@ -148,6 +138,18 @@ export default function AddProduct() {
                 required
               />
             </div>
+
+
+            <div className="add-field">
+              <label>Modelo</label>
+              <input
+                type="text"
+                name="modelo"
+                value={formData.modelo}
+                onChange={handleChange}
+              />
+            </div>
+
 
             <div className="add-field">
               <label>Distrito *</label>
