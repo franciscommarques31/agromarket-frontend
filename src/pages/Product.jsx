@@ -90,8 +90,8 @@ export default function ProductPage() {
   const ppHandleFavorite = async (e, product) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user) return alert("É necessário estar logado para adicionar favoritos!");
-    if (product.user?._id === user.id) return alert("Não pode favoritar o seu próprio produto!");
+    if (!user) return alert("É necessário ter login feito para adicionar o produto como favorito!");
+    if (product.user?._id === user.id) return alert("Não pode colocar como favorito o seu próprio anúncio!");
 
     try {
       await axios.post(
@@ -102,14 +102,14 @@ export default function ProductPage() {
       alert("Produto adicionado/removido dos favoritos!");
     } catch (err) {
       console.error(err);
-      alert("Erro ao adicionar favorito");
+      alert("Erro ao adicionar produto como favorito");
     }
   };
 
   const ppHandleOpenModal = (e, product) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user) return alert("É necessário estar logado para enviar mensagem!");
+    if (!user) return alert("É necessário ter login feito para enviar mensagem!");
     if (product.user?._id === user.id) return alert("Não pode enviar mensagem para o seu próprio anúncio.");
     setPpSelectedProduct(product);
     setPpModalOpen(true);

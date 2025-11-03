@@ -11,17 +11,15 @@ export default function Messages() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [sending, setSending] = useState(false);
-  const [filter, setFilter] = useState("comprar"); // padrão: comprar
+  const [filter, setFilter] = useState("comprar");
 
   const messagesEndRef = useRef(null);
 
-  // Scroll automático para o fim
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   useEffect(scrollToBottom, [messages]);
 
-  // Buscar conversas
   useEffect(() => {
     const fetchConversations = async () => {
       if (!token) return;
@@ -38,7 +36,6 @@ export default function Messages() {
     fetchConversations();
   }, [token]);
 
-  // Filtrar conversas por tipo (comprar / vender)
   useEffect(() => {
     if (!conversations.length || !user) return;
 
@@ -54,13 +51,13 @@ export default function Messages() {
     setFilteredConversations(filtered);
   }, [filter, conversations, user]);
 
-  // Selecionar conversa
   const handleSelectConversation = async (conv) => {
     setSelectedConversation(conv);
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/messages/${conv.product._id}/user`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/messages/${conv.product._id}/user`,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       const data = await res.json();
       setMessages(data);
     } catch (err) {
@@ -69,7 +66,6 @@ export default function Messages() {
     }
   };
 
-  // Enviar mensagem
   const handleSendMessage = async () => {
     if (!newMessage.trim() || !selectedConversation) return;
     setSending(true);
@@ -93,23 +89,42 @@ export default function Messages() {
         }),
       });
       const data = await res.json();
-
-      setMessages(prev => [...prev, data.message]);
-
-      // Atualiza a lista de conversas com a última mensagem
-      setConversations(prev =>
-        prev.map(conv =>
-          conv._id === selectedConversation._id
-            ? { ...conv, content: newMessage }
-            : conv
-        )
-      );
-
+      setMessages((prev) => [...prev, data.message]);
       setNewMessage("");
     } catch (err) {
       console.error("Erro ao enviar mensagem:", err);
     } finally {
       setSending(false);
+    }
+  };
+
+  const handleDeleteConversation = async () => {
+    if (!selectedConversation) return;
+
+    const confirmDelete = window.confirm("Apagar conversa?");
+    if (!confirmDelete) return;
+
+    const otherUserId =
+      selectedConversation.sender._id === user.id
+        ? selectedConversation.recipient._id
+        : selectedConversation.sender._id;
+
+    try {
+      await fetch(
+        `${import.meta.env.VITE_API_URL}/messages/${selectedConversation.product._id}/${otherUserId}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      setConversations(prev =>
+        prev.filter(c => c._id !== selectedConversation._id)
+      );
+      setSelectedConversation(null);
+      setMessages([]);
+    } catch (err) {
+      console.error("Erro ao apagar conversa:", err);
     }
   };
 
@@ -119,7 +134,6 @@ export default function Messages() {
       <div className="messages-page">
         <div className="conversations-container">
           <div className="conversations-list">
-            {/* Botões de filtro */}
             <div className="conversations-list-buttons">
               <button
                 className={filter === "comprar" ? "active" : ""}
@@ -156,8 +170,7 @@ export default function Messages() {
                   <div className="conversation-info">
                     <h4>
                       {conv.product?.produto || "Produto"} -{" "}
-                      {conv.product?.marca || ""}{" "}
-                      {conv.product?.modelo || ""}
+                      {conv.product?.marca || ""} {conv.product?.modelo || ""}
                     </h4>
                     <p>
                       <strong>
@@ -191,7 +204,12 @@ export default function Messages() {
                     {selectedConversation.product?.marca || ""}{" "}
                     {selectedConversation.product?.modelo || ""}
                   </h3>
+
+                  <button className="delete-chat" onClick={handleDeleteConversation}>
+                    Eliminar
+                  </button>
                 </div>
+
                 <div className="chat-messages">
                   {messages.map(msg => (
                     <div
@@ -205,11 +223,12 @@ export default function Messages() {
                   ))}
                   <div ref={messagesEndRef} />
                 </div>
+
                 <div className="chat-input">
                   <textarea
                     placeholder="Escreve uma mensagem..."
                     value={newMessage}
-                    onChange={e => setNewMessage(e.target.value)}
+                    onChange={(e) => setNewMessage(e.target.value)}
                   />
                   <button onClick={handleSendMessage} disabled={sending}>
                     {sending ? "A enviar..." : "Enviar"}

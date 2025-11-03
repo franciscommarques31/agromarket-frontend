@@ -20,7 +20,7 @@ export default function Favorites() {
       });
       setFavorites(res.data);
     } catch (error) {
-      console.error("Erro ao buscar favoritos:", error);
+      console.error("Erro ao buscar os favoritos:", error);
     }
   };
 
@@ -34,7 +34,7 @@ export default function Favorites() {
       );
       fetchFavorites(); // atualizar a lista
     } catch (error) {
-      console.error("Erro ao atualizar favorito:", error);
+      console.error("Erro ao atualizar os favoritos:", error);
     }
   };
 

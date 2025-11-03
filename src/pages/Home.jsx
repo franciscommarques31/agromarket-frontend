@@ -46,7 +46,7 @@ export default function Home() {
       );
       setProducts(res.data.slice(0, 12));
     } catch (error) {
-      console.error("Erro ao buscar produtos:", error);
+      console.error("Erro ao buscar os produtos:", error);
     }
   };
 
@@ -69,7 +69,7 @@ export default function Home() {
   const handleFavorite = async (e, product) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user) return alert("É necessário estar logado para adicionar favoritos!");
+    if (!user) return alert("É necessário ter login feito para adicionar o produto como favorito!");
     if (product.user?._id === user.id) {
       return alert("Não pode colocar como favorito o seu próprio produto!");
     }
@@ -83,14 +83,14 @@ export default function Home() {
       alert("Produto adicionado/removido dos favoritos!");
     } catch (err) {
       console.error(err);
-      alert("Erro ao adicionar favorito");
+      alert("Erro ao adicionar produto como favorito");
     }
   };
 
   const handleOpenModal = (e, product) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user) return alert("É necessário estar logado para enviar mensagem!");
+    if (!user) return alert("É necessário ter login feito para enviar mensagem!");
     if (product.user?._id === user.id) {
       return alert("Não pode enviar mensagem para o seu próprio anúncio.");
     }

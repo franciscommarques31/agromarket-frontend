@@ -67,7 +67,7 @@ export default function Login() {
 
               {/* LINK PARA ESQUECI A PASSWORD */}
               <p style={{ marginTop: "10px", textAlign: "right" }}>
-                <Link to="/forgot-password">Esqueci a minha password</Link>
+                <Link to="/forgot-password">Esqueceste-te da palavra-passe?</Link>
               </p>
 
               {error && <p className="auth-error">{error}</p>}

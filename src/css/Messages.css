@@ -20,13 +20,12 @@
   width: 350px;
   border-right: 1px solid #ddd;
   overflow-y: auto;
-  overflow-x: hidden; /* impede scroll horizontal */
+  overflow-x: hidden;
   background: #fff;
   padding: 10px;
   box-sizing: border-box;
 }
 
-/* Botões de filtro no topo da lista de conversas */
 .conversations-list-buttons {
   display: flex;
   gap: 8px;
@@ -80,7 +79,7 @@
 
 .conversation-info {
   flex: 1;
-  min-width: 0; /* importante para evitar scroll horizontal */
+  min-width: 0;
 }
 
 .conversation-info h4 {
@@ -195,4 +194,23 @@
   text-align: center;
   color: #666;
   font-style: italic;
+}
+
+/* ✅ Botão "Eliminar" */
+.delete-chat {
+  margin-left: auto;
+  background: #d00000;
+  border: none;
+  color: white;
+  font-size: 14px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.delete-chat:hover {
+  background: #ff0000;
+  transform: scale(1.07);
 }
