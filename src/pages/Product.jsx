@@ -34,8 +34,12 @@ export default function ProductPage() {
     axios
       .get(`${import.meta.env.VITE_API_URL}/products`)
       .then((res) => {
-        setProducts(res.data);
-        setFilteredProducts(res.data);
+        const sortedProducts = res.data.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        );
+
+        setProducts(sortedProducts);
+        setFilteredProducts(sortedProducts);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -147,7 +151,6 @@ export default function ProductPage() {
                     alt={product.produto}
                   />
 
-                  {/* Botões */}
                   <div className="pp-card-buttons">
                     <button
                       className="pp-favorite-btn"
