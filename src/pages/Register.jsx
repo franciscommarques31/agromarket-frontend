@@ -2,7 +2,7 @@ import { useState } from "react";
 import { registerUser } from "../api/auth";
 import { useNavigate, Link } from "react-router-dom";
 import HeaderPublic from "../components/HeaderPublic";
-import "../css/Register.css"; // CSS específico da página de registo
+import "../css/Register.css";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -10,28 +10,24 @@ export default function Register() {
     surname: "",
     email: "",
     password: "",
+    confirmPassword: "", // ✅ Adicionado
     birthDate: "",
     city: "",
     country: "",
-    phone: "",
-    isCompany: false,
-    companyName: "",
+    phone: ""
   });
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-
-    // Atualiza o estado do formulário
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     });
 
-    // Limpa o erro automaticamente se o utilizador estiver a editar a password ou a data
-    if (error && (name === "password" || name === "birthDate")) {
+    if (error && (name === "password" || name === "confirmPassword" || name === "birthDate")) {
       setError("");
     }
   };
@@ -47,15 +43,12 @@ export default function Register() {
   };
 
   const validatePassword = (password) => {
-    // Pelo menos 1 caractere especial
     const specialCharRegex = /[^A-Za-z0-9]/;
     return specialCharRegex.test(password);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Limpa o erro antigo
     setError("");
 
     if (!validateAge(formData.birthDate)) {
@@ -68,8 +61,14 @@ export default function Register() {
       return;
     }
 
+    if (formData.password !== formData.confirmPassword) {
+      setError("As palavras-passe não coincidem!");
+      return;
+    }
+
     try {
-      await registerUser(formData);
+      const { confirmPassword, ...dataToSend } = formData; // ✅ remove confirmPassword do envio
+      await registerUser(dataToSend);
       navigate("/login");
     } catch (err) {
       setError(err.message || "Erro ao registar");
@@ -82,33 +81,16 @@ export default function Register() {
 
       <div className="register-wrapper">
         <div className="register-container">
-          {/* Criar Conta */}
+
           <div className="register-left">
             <h2>AINDA NÃO TEM CONTA?</h2>
             <p>Crie uma gratuitamente e comece a usar o nosso serviço em poucos segundos.</p>
 
             <form onSubmit={handleSubmit} className="register-form">
-              <input
-                type="text"
-                name="name"
-                placeholder="Nome"
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
-                name="surname"
-                placeholder="Apelido"
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                onChange={handleChange}
-                required
-              />
+              <input type="text" name="name" placeholder="Nome" onChange={handleChange} required />
+              <input type="text" name="surname" placeholder="Apelido" onChange={handleChange} required />
+              <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
+
               <input
                 type="password"
                 name="password"
@@ -116,78 +98,36 @@ export default function Register() {
                 onChange={handleChange}
                 required
               />
-              
-              {/* Data de Nascimento */}
+
+              {/* ✅ Novo campo */}
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Confirmar Password"
+                onChange={handleChange}
+                required
+              />
+
               <label htmlFor="birthDate" className="birth-label">
                 Data de Nascimento
               </label>
-              <input
-                type="date"
-                name="birthDate"
-                id="birthDate"
-                onChange={handleChange}
-                required
-              />
+              <input type="date" name="birthDate" id="birthDate" onChange={handleChange} required />
 
-              <input
-                type="text"
-                name="city"
-                placeholder="Cidade"
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="text"
-                name="country"
-                placeholder="País"
-                onChange={handleChange}
-                required
-              />
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Telefone"
-                onChange={handleChange}
-                required
-              />
+              <input type="text" name="city" placeholder="Cidade" onChange={handleChange} required />
+              <input type="text" name="country" placeholder="País" onChange={handleChange} required />
+              <input type="tel" name="phone" placeholder="Telefone" onChange={handleChange} required />
 
-              <div className="checkbox-group">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="isCompany"
-                    checked={formData.isCompany}
-                    onChange={handleChange}
-                  />
-                  É empresa?
-                </label>
-                {formData.isCompany && (
-                  <input
-                    type="text"
-                    name="companyName"
-                    placeholder="Nome da Empresa"
-                    onChange={handleChange}
-                    required
-                  />
-                )}
-              </div>
-
-              <button type="submit" className="btn-primary">
-                Criar Conta
-              </button>
-
+              <button type="submit" className="btn-primary">Criar Conta</button>
               {error && <p className="auth-error">{error}</p>}
             </form>
           </div>
 
-          {/* Login */}
           <div className="register-right">
             <h2>SE JÁ É DA CASA</h2>
             <p>Introduza os seus dados e aceda à sua conta.</p>
-            <Link to="/login" className="btn-secondary">
-              Fazer Login
-            </Link>
+            <Link to="/login" className="btn-secondary">Fazer Login</Link>
           </div>
+
         </div>
       </div>
     </div>
