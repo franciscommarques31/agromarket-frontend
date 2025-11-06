@@ -67,7 +67,7 @@ export default function Register() {
     }
 
     try {
-      const { confirmPassword, ...dataToSend } = formData; 
+      const { confirmPassword, ...dataToSend } = formData; // ✅ remove confirmPassword do envio
       await registerUser(dataToSend);
       navigate("/login");
     } catch (err) {

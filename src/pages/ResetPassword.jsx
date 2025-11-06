@@ -23,7 +23,7 @@ export default function ResetPassword() {
       const res = await resetPassword(token, password);
       setMessage(res.message);
       setError("");
-      
+      // Redireciona para login depois de 2 segundos
       setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       setError(err.message || "Erro ao redefinir password");

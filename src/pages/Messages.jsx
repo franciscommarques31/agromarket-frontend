@@ -170,7 +170,8 @@ export default function Messages() {
                   <div className="conversation-info">
                     <h4>
                       {conv.product?.produto || "Produto"} -{" "}
-                      {conv.product?.marca || ""} {conv.product?.modelo || ""}
+                      {conv.product?.marca || ""}{" "}
+                      {conv.product?.modelo || ""}
                     </h4>
                     <p>
                       <strong>
@@ -206,7 +207,7 @@ export default function Messages() {
                   </h3>
 
                   <button className="delete-chat" onClick={handleDeleteConversation}>
-                    Eliminar
+                    ❌
                   </button>
                 </div>
 

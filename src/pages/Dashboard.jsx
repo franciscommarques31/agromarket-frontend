@@ -31,8 +31,8 @@ export default function Dashboard() {
 
       // Filtrar e ordenar os mais vistos para a lista da direita
       const mostViewed = myProducts
-        .filter((p) => p.views > 0)          
-        .sort((a, b) => b.views - a.views);  
+        .filter((p) => p.views > 0)           // só produtos com views
+        .sort((a, b) => b.views - a.views);  // do mais visto para o menos visto
 
       setDashboardProducts(myProducts);
       setMostViewedProducts(mostViewed);
