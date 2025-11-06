@@ -39,7 +39,7 @@ export default function Register() {
     let age = today.getFullYear() - birth.getFullYear();
     const m = today.getMonth() - birth.getMonth();
     if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
-    return age >= 18 && age <= 130;
+    return age >= 18;
   };
 
   const validatePassword = (password) => {
@@ -52,7 +52,7 @@ export default function Register() {
     setError("");
 
     if (!validateAge(formData.birthDate)) {
-      setError("A idade deve ser entre 18 e 130 anos.");
+      setError("A continuação do registo não é permitida para menores de 18 anos.");
       return;
     }
 
