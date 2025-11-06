@@ -107,7 +107,7 @@ export default function Home() {
 
   return (
     <div>
-      {/* Header sempre renderizado/}
+      {/* Header sempre renderizado*/}
       <HeaderPublic />
 
       {/* Vídeo de introdução */}
