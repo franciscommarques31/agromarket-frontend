@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import HeaderPublic from "../components/HeaderPublic";
-import MessageModal from "../components/MessageModal"; // modal correto do Home
+import MessageModal from "../components/MessageModal"; 
 import { AuthContext } from "../context/AuthContext";
 import "../css/ProductDetail.css";
 

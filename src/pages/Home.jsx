@@ -107,10 +107,10 @@ export default function Home() {
 
   return (
     <div>
-      {/* Header sempre renderizado, ficará desfocado pelo overlay */}
+      {/* Header sempre renderizado/}
       <HeaderPublic />
 
-      {/* Vídeo de introdução com overlay de opacidade/desfoque */}
+      {/* Vídeo de introdução */}
       {showIntro && (
         <div className="intro-overlay">
           <div className="intro-container">

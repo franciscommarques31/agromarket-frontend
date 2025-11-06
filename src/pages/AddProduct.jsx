@@ -47,7 +47,7 @@ export default function AddProduct() {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        setError("Precisas de estar autenticado.");
+        setError("Precisa de estar autenticado.");
         setLoading(false);
         return;
       }

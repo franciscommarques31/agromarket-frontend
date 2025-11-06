@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../components/Header"; // Header privado
+import Header from "../components/Header"; 
 import { AiOutlineHeart } from "react-icons/ai";
 import "../css/Favorites.css";
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
-  const token = localStorage.getItem("token"); // ler token diretamente
+  const token = localStorage.getItem("token"); 
 
   useEffect(() => {
     fetchFavorites();
@@ -32,7 +32,7 @@ export default function Favorites() {
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      fetchFavorites(); // atualizar a lista
+      fetchFavorites(); 
     } catch (error) {
       console.error("Erro ao atualizar os favoritos:", error);
     }
@@ -47,7 +47,7 @@ export default function Favorites() {
     <div>
       <Header isLoggedIn={!!token} /> {/* passar estado de login */}
       <div className="favpage-container">
-        <h1>Meus Favoritos</h1>
+        <h1>Os meus Favoritos</h1>
 
         {favorites.length === 0 ? (
           <p>Não tens favoritos ainda.</p>

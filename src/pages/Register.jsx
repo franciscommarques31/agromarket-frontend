@@ -10,7 +10,7 @@ export default function Register() {
     surname: "",
     email: "",
     password: "",
-    confirmPassword: "", // ✅ Adicionado
+    confirmPassword: "", 
     birthDate: "",
     city: "",
     country: "",
@@ -67,7 +67,7 @@ export default function Register() {
     }
 
     try {
-      const { confirmPassword, ...dataToSend } = formData; // ✅ remove confirmPassword do envio
+      const { confirmPassword, ...dataToSend } = formData; 
       await registerUser(dataToSend);
       navigate("/login");
     } catch (err) {

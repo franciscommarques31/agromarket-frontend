@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import HeaderPublic from "../components/HeaderPublic";
 import "../css/Login.css";
-import { loginUser } from "../api/auth"; // função que faz login no backend
+import { loginUser } from "../api/auth"; 
 import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
@@ -19,15 +19,15 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Chama API de login
-      const res = await loginUser(formData); // retorna { token, user }
+    
+      const res = await loginUser(formData); 
       const { token, user } = res;
 
-      // Guarda no contexto e no localStorage
-      login(user, token); // update AuthContext
-      localStorage.setItem("token", token); // Guarda token para usar nas rotas admin
+    
+      login(user, token); 
+      localStorage.setItem("token", token); 
 
-      // Redireciona admin ou user normal
+      
       if (user.isAdmin) {
         navigate("/admin");
       } else {
@@ -65,7 +65,7 @@ export default function Login() {
                 Entrar
               </button>
 
-              {/* LINK PARA ESQUECI A PASSWORD */}
+              {/* LINK PARA PASSWORD */}
               <p style={{ marginTop: "10px", textAlign: "right" }}>
                 <Link to="/forgot-password">Esqueceste-te da palavra-passe?</Link>
               </p>

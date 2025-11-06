@@ -17,7 +17,7 @@ export default function EditProfile() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  // Buscar dados do utilizador logado
+  
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -85,7 +85,7 @@ export default function EditProfile() {
 
       alert("Conta eliminada com sucesso.");
       localStorage.removeItem("token");
-      window.location.href = "/"; // redireciona para a página inicial
+      window.location.href = "/";
     } catch (err) {
       console.error(err);
       alert("Erro ao eliminar conta.");

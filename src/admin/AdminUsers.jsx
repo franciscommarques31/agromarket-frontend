@@ -173,7 +173,7 @@ export default function AdminUsers() {
                 }
               />
 
-              <label>Password (deixa em branco para não alterar)</label>
+              <label>Password (deixar em branco se não for para alterar)</label>
               <input
                 type="password"
                 placeholder="Nova password"

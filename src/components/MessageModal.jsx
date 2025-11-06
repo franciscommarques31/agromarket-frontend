@@ -10,7 +10,7 @@ export default function MessageModalConversations({ isOpen, onClose, productId, 
   const [sending, setSending] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Buscar histórico de mensagens do produto
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -21,7 +21,7 @@ export default function MessageModalConversations({ isOpen, onClose, productId, 
         });
         setMessages(res.data);
       } catch (err) {
-        console.error("Erro ao buscar mensagens:", err);
+        console.error("Erro ao buscar as mensagens:", err);
       }
     };
 
@@ -63,7 +63,6 @@ export default function MessageModalConversations({ isOpen, onClose, productId, 
     <div className="conversation-modal" onClick={onClose}>
       <div className="conversation-box" onClick={(e) => e.stopPropagation()}>
         <div className="conversation-header">
-          <h3>Conversação do Produto</h3>
           <button className="close-btn" onClick={onClose}>×</button>
         </div>
 
