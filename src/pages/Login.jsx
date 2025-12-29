@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 ícones do olho
 import HeaderPublic from "../components/HeaderPublic";
 import "../css/Login.css";
 import { loginUser } from "../api/auth"; 
@@ -9,6 +10,7 @@ export default function Login() {
   const { login } = useContext(AuthContext);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,20 +21,14 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-    
       const res = await loginUser(formData); 
       const { token, user } = res;
 
-    
       login(user, token); 
       localStorage.setItem("token", token); 
 
-      
-      if (user.isAdmin) {
-        navigate("/admin");
-      } else {
-        navigate("/dashboard");
-      }
+      if (user.isAdmin) navigate("/admin");
+      else navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Credenciais inválidas");
     }
@@ -54,18 +50,32 @@ export default function Login() {
                 onChange={handleChange}
                 required
               />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                required
-              />
+              <div className="password-wrapper" style={{ position: "relative" }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  required
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
+
               <button type="submit" className="btn-primary">
                 Entrar
               </button>
 
-              {/* LINK PARA PASSWORD */}
               <p style={{ marginTop: "10px", textAlign: "right" }}>
                 <Link to="/forgot-password">Esqueceste-te da palavra-passe?</Link>
               </p>

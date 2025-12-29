@@ -1,4 +1,4 @@
-/* Body com imagem de fundo e transparência */
+/* Body e fundo */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -25,15 +25,86 @@ body::before {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px 60px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
 }
 
-/* Main content */
+/* Layout principal com sidebar */
+.home-content-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center; /* mantém produtos centrados */
+}
+
+/* main-content ocupa 3/4 */
 .main-content {
+  flex: 3;
+}
+
+/* Sidebar ocupa 1/4 */
+.news-sidebar {
   flex: 1;
-  min-width: 0;
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+  max-height: 800px;
+  overflow-y: auto;
+  margin-top: 110px;
+
+  
+}
+
+/* Título da sidebar */
+.news-sidebar h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Cada item de notícia */
+.news-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+  padding-bottom: 10px;        /* espaço interno inferior */
+  border-bottom: 1px solid #ddd; /* linha de separação */
+}
+
+/* Imagem da notícia */
+.news-image-wrapper {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.news-image-wrapper img,
+.news-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+/* Título da notícia */
+.news-title {
+  font-size: 0.85rem;
+  color: #1f2937;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.news-title:hover {
+  text-decoration: underline;
+}
+
+/* Data da notícia */
+.news-date {
+  font-size: 0.7rem;
+  color: #6b7280;
+  text-align: right;
 }
 
 /* Descrição */
@@ -53,15 +124,12 @@ body::before {
 }
 
 /* Filtros */
-.home-filters {
-  margin-bottom: 30px;
-}
-
 .filters-form {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 .filters-form input,
@@ -89,10 +157,9 @@ body::before {
 /* Grid produtos */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 15px;
-  justify-items: stretch;
-  margin: 0 auto;
+  justify-items: center;
 }
 
 /* Product Card */
@@ -101,18 +168,14 @@ body::before {
   background: #f9fafb;
   padding: 15px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   text-decoration: none;
   color: #1f2937;
-  width: 100%;
-  max-width: 300px;
 }
 
-/* Imagem do card */
+/* Imagem */
 .product-card img {
   width: 100%;
   height: 180px;
@@ -121,17 +184,15 @@ body::before {
   margin-bottom: 10px;
 }
 
-/* Botão de favorito */
-.favorite-btn {
+/* Botões favoritos/mensagem */
+.favorite-btn, .message-btn {
   position: absolute;
   top: 10px;
-  right: 10px;
   background: rgba(255, 255, 255, 0.9);
   border: none;
   padding: 5px;
   border-radius: 50%;
   cursor: pointer;
-  color: #ef4444;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -139,13 +200,23 @@ body::before {
   transition: transform 0.2s;
 }
 
-.favorite-btn:hover {
+.favorite-btn {
+  right: 10px;
+  color: #ef4444;
+}
+
+.message-btn {
+  right: 45px;
+  color: #3b82f6;
+}
+
+.favorite-btn:hover,
+.message-btn:hover {
   transform: scale(1.2);
 }
 
 /* Infos do produto */
 .product-info {
-  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -158,11 +229,9 @@ body::before {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-decoration: none;
-  color: #1f2937;
 }
 
-/* Marca e modelo lado a lado */
+/* Marca e modelo */
 .marca-modelo {
   display: flex;
   align-items: center;
@@ -170,22 +239,8 @@ body::before {
   margin: 3px 0;
 }
 
-.marca-modelo .marca,
-.marca-modelo .modelo {
-  font-size: 0.8rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.marca-modelo .marca {
-  color: #333;
-}
-
-.marca-modelo .modelo {
-  color: #555;
-  font-weight: 500;
-}
+.marca-modelo .marca { color: #333; font-size: 0.8rem; }
+.marca-modelo .modelo { color: #555; font-weight: 500; font-size: 0.8rem; }
 
 /* Bottom */
 .product-bottom {
@@ -196,23 +251,11 @@ body::before {
   margin-top: auto;
 }
 
-.bottom-left .preco {
-  color: #1f2937;
-}
+.bottom-left .preco { color: #1f2937; }
+.bottom-right { display: flex; flex-direction: column; align-items: flex-end; font-size: 0.7rem; color: #888; }
+.bottom-right .localidade { margin-bottom: 2px; }
 
-.bottom-right {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  font-size: 0.7rem;
-  color: #888;
-}
-
-.bottom-right .localidade {
-  margin-bottom: 2px;
-}
-
-/* Estado como etiqueta */
+/* Estado */
 .estado-tag {
   position: absolute;
   top: 8px;
@@ -225,41 +268,5 @@ body::before {
   text-transform: uppercase;
 }
 
-.estado-tag.novo {
-  background-color: #10b981;
-}
-
-.estado-tag.usado {
-  background-color: #f59e0b;
-}
-
-/* Todo o card clicável */
-.product-card-link {
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
-
-
-
-/* Botão de mensagem igual ao favorito */
-.message-btn {
-  position: absolute;
-  top: 10px;
-  right: 45px; /* à esquerda do favorito */
-  background: rgba(255, 255, 255, 0.9);
-  border: none;
-  padding: 5px;
-  border-radius: 50%;
-  cursor: pointer;
-  color: #3b82f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-  transition: transform 0.2s;
-}
-
-.message-btn:hover {
-  transform: scale(1.2);
-}
+.estado-tag.novo { background-color: #10b981; }
+.estado-tag.usado { background-color: #f59e0b; }

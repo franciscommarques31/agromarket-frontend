@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { registerUser } from "../api/auth";
 import { useNavigate, Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // 👈 ícones do olho
 import HeaderPublic from "../components/HeaderPublic";
 import "../css/Register.css";
 
@@ -18,15 +19,13 @@ export default function Register() {
   });
 
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-
+    setFormData({ ...formData, [name]: value });
     if (error && (name === "password" || name === "confirmPassword" || name === "birthDate")) {
       setError("");
     }
@@ -67,7 +66,7 @@ export default function Register() {
     }
 
     try {
-      const { confirmPassword, ...dataToSend } = formData; // ✅ remove confirmPassword do envio
+      const { confirmPassword, ...dataToSend } = formData;
       await registerUser(dataToSend);
       navigate("/login");
     } catch (err) {
@@ -78,7 +77,6 @@ export default function Register() {
   return (
     <div className="register-page">
       <HeaderPublic />
-
       <div className="register-wrapper">
         <div className="register-container">
 
@@ -91,22 +89,51 @@ export default function Register() {
               <input type="text" name="surname" placeholder="Apelido" onChange={handleChange} required />
               <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
 
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={handleChange}
-                required
-              />
+              {/* Password */}
+              <div className="password-wrapper" style={{ position: "relative" }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  placeholder="Password"
+                  onChange={handleChange}
+                  required
+                />
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
 
-              {/* ✅ Novo campo */}
-              <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirmar Password"
-                onChange={handleChange}
-                required
-              />
+              {/* Confirm Password */}
+              <div className="password-wrapper" style={{ position: "relative" }}>
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="Confirmar Password"
+                  onChange={handleChange}
+                  required
+                />
+                <span
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                  }}
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
 
               <label htmlFor="birthDate" className="birth-label">
                 Data de Nascimento
